@@ -1,0 +1,19 @@
+{
+  "name": "api-base",
+  "version": "1.0.0",
+  "description": "Node/Express powered API boilerplate w/JWT Authentication.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node api.js",
+    "nodemon": "nodemon --exec 'nf start'",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Scott Szarapka <scott@szarapka.com>",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "1.14.2",
+    "express": "4.13.4",
+    "mongoose": "4.3.7",
+    "morgan": "1.6.1"
+  }
+}
