@@ -16,8 +16,9 @@ apiController = (function() {
     let secret = process.env.TOKEN_SECRET
     let expiry = process.env.TOKEN_EXPIRY
     let issuer = process.env.TOKEN_ISSUER
+    let audience = process.env.TOKEN_AUDIENCE
 
-    return jwt.sign(_.omit(user, 'password'), secret, {expiresIn: expiry, issuer: issuer})
+    return jwt.sign(_.omit(user, 'password'), secret, {expiresIn: expiry, issuer: issuer, audience: audience})
   }
 
   return {
