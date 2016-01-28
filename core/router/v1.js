@@ -12,6 +12,9 @@ module.exports = function () {
   router.route('/')
     .get(api.hello)
 
+  router.route('/authenticate')
+    .post(api.authenticate)
+
   router.all('*', jwtCheck)
 
   // ALL ROUTES BELOW REQUIRE TOKENS

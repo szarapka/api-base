@@ -3,15 +3,11 @@
 var apiController
 
 apiController = (function() {
-  // Dependencies
   let _ = require('lodash')
   let user = require('../models/user')
 
-  function init() {
-    // Initialize things privately.
-  }
-
   function createToken(user) {
+    // JWT spec: https://tools.ietf.org/html/rfc7519
     let jwt = require('jsonwebtoken')
     let secret = process.env.TOKEN_SECRET
     let expiry = process.env.TOKEN_EXPIRY
@@ -29,7 +25,24 @@ apiController = (function() {
       return res.status(200).json({msg: 'restricted'})
     },
     authenticate: (req, res, next) => {
-      // authenticate
+      db.User.findOne({'username': req.body.username}, 'username password email display').exec(function (err, user) {
+        if (err) {
+          return res.status(500).json({status: 500, message: 'An Internal Error has Occured. Please try again later.', error: err})
+        }
+
+        if (!user) {
+          return res.status(401).json({status: 401, message: 'Invalid Username or Password.'})
+        }
+
+        if (!user.validPassword(req.body.password)) {
+          return res.status(401).json({status: 401, message: 'Invalid Username or Password.'})
+        }
+
+        // so lodash omit will work
+        user = user.toObject()
+
+        return res.status(201).json({token: createToken(user), user: _.omit(user, 'password')})
+      })
     }
   }
 })()
