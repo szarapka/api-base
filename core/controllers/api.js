@@ -4,7 +4,7 @@ var apiController
 
 apiController = (function() {
   let _ = require('lodash')
-  let user = require('../models/user')
+  let User = require('../models/user')
 
   function createToken(user) {
     // JWT spec: https://tools.ietf.org/html/rfc7519
@@ -25,7 +25,7 @@ apiController = (function() {
       return res.status(200).json({msg: 'restricted'})
     },
     authenticate: (req, res, next) => {
-      db.User.findOne({'username': req.body.username}, 'username password email display').exec(function (err, user) {
+      User.findOne({'username': req.body.username}, 'username password email display').exec(function (err, user) {
         if (err) {
           return res.status(500).json({status: 500, message: 'An Internal Error has Occured. Please try again later.', error: err})
         }
@@ -38,7 +38,7 @@ apiController = (function() {
           return res.status(401).json({status: 401, message: 'Invalid Username or Password.'})
         }
 
-        // so lodash omit will work
+        // so lodash.omit will work
         user = user.toObject()
 
         return res.status(201).json({token: createToken(user), user: _.omit(user, 'password')})

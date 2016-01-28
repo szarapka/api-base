@@ -17,7 +17,7 @@ module.exports = function () {
 
   router.all('*', jwtCheck)
 
-  // ALL ROUTES BELOW REQUIRE TOKENS
+  // ROUTES BELOW REQUIRE TOKENS
 
   router.route('/restricted')
     .get(api.restricted)
