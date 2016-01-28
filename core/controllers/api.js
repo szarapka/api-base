@@ -25,6 +25,9 @@ apiController = (function() {
     hello: (req, res, next) => {
       return res.status(200).json({msg: 'api-base'})
     },
+    restricted: (req, res, next) => {
+      return res.status(200).json({msg: 'restricted'})
+    },
     authenticate: (req, res, next) => {
       // authenticate
     }

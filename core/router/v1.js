@@ -12,9 +12,12 @@ module.exports = function () {
   router.route('/')
     .get(api.hello)
 
-  router.all('/', jwtCheck)
+  router.all('*', jwtCheck)
 
   // ALL ROUTES BELOW REQUIRE TOKENS
+
+  router.route('/restricted')
+    .get(api.restricted)
 
   return router
 }()
