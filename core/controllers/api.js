@@ -19,29 +19,50 @@ apiController = (function() {
 
   return {
     hello: (req, res, next) => {
-      return res.status(200).json({msg: 'api-base'})
+      return res.status(200).json({
+        status: 200,
+        msg: 'api-base'
+      })
     },
     restricted: (req, res, next) => {
-      return res.status(200).json({msg: 'restricted'})
+      return res.status(200).json({
+        status: 200,
+        msg: 'restricted'
+      })
     },
     authenticate: (req, res, next) => {
       User.findOne({'username': req.body.username}, 'username password email display').exec(function (err, user) {
         if (err) {
-          return res.status(500).json({status: 500, message: 'An Internal Error has Occured. Please try again later.', error: err})
+          return res.status(500).json({
+            status: 500,
+            message: 'An Internal Error has Occured. Please try again later.',
+            error: err
+          })
         }
 
         if (!user) {
-          return res.status(401).json({status: 401, message: 'Invalid Username or Password.'})
+          return res.status(401).json({
+            status: 401,
+            message: 'Invalid Credentials.'
+          })
         }
 
         if (!user.validPassword(req.body.password)) {
-          return res.status(401).json({status: 401, message: 'Invalid Username or Password.'})
+          return res.status(401).json({
+            status: 401,
+            message: 'Invalid Credentials.'
+          })
         }
 
-        // so lodash.omit will work
+        // Needed for lodash.omit to work
         user = user.toObject()
 
-        return res.status(201).json({token: createToken(user), user: _.omit(user, 'password')})
+        return res.status(201).json({
+          status: 201,
+          message: 'Token Created',
+          token: createToken(user),
+          user: _.omit(user, 'password'
+        )})
       })
     }
   }

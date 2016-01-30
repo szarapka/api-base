@@ -15,6 +15,7 @@ module.exports = function () {
   router.route('/authenticate')
     .post(api.authenticate)
 
+  // Force all routes below to require JWT tokens.
   router.all('*', jwtCheck)
 
   // ROUTES BELOW REQUIRE TOKENS

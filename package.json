@@ -2,14 +2,17 @@
   "name": "api-base",
   "version": "1.0.0",
   "description": "Node/Express powered API boilerplate w/JWT Authentication.",
-  "main": "index.js",
+  "author": "Scott Szarapka <scott@szarapka.com>",
+  "license": "MIT",
   "scripts": {
     "start": "node api.js",
     "nodemon": "nodemon --exec 'nf start'",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Scott Szarapka <scott@szarapka.com>",
-  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/szarapka/api-base.git"
+  },
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "1.14.2",
