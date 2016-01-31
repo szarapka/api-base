@@ -24,17 +24,15 @@ module.exports = function (app) {
       })
     }
 
-    res.status(err.status || 500)
-
     // Setup the returned object
     let json = {
-      status: res.status,
+      status: err.status || 500,
       message: err.message
     }
     // More detail for development
     if (app.get('env') === 'development')
       json.error = err
 
-    return res.json(json)
+    return res.status(err.status || 500).json(json)
   })
 }

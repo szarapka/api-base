@@ -21,13 +21,13 @@ apiController = (function() {
     hello: (req, res, next) => {
       return res.status(200).json({
         status: 200,
-        msg: 'api-base'
+        message: 'api-base'
       })
     },
     restricted: (req, res, next) => {
       return res.status(200).json({
         status: 200,
-        msg: 'restricted'
+        message: 'restricted'
       })
     },
     authenticate: (req, res, next) => {

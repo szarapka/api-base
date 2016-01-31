@@ -1,5 +1,6 @@
 const router = require('express').Router()
 const api = require('../controllers/api')
+const users = require('../controllers/users')
 const jwt = require('express-jwt')
 
 const jwtCheck = jwt({
@@ -15,13 +16,20 @@ module.exports = function () {
   router.route('/authenticate')
     .post(api.authenticate)
 
-  // Force all routes below to require JWT tokens.
-  router.all('*', jwtCheck)
+  // router.all('*', jwtCheck)
 
   // ROUTES BELOW REQUIRE TOKENS
 
   router.route('/restricted')
     .get(api.restricted)
+
+  router.route('/users')
+    .get(users.list)
+    .post(users.create)
+
+  router.route('/users/:id')
+    .get(users.get)
+    .delete(users.destroy)
 
   return router
 }()
