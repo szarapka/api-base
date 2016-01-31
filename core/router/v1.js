@@ -29,6 +29,7 @@ module.exports = function () {
 
   router.route('/users/:id')
     .get(users.get)
+    .put(users.update)
     .delete(users.destroy)
 
   return router
